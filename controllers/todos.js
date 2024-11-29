@@ -28,23 +28,38 @@ class todoController {
       tasks: this.TODOS,
     });
   }
-  updateTodo(req, res) {
+  async updateTodo(req, res) {
     const todoId = req.params.id;
     const updatedTask = req.body.task;
+
+    if (!updatedTask || typeof updatedTask !== "string") {
+      return res.status(400).json({
+        message: "Invalid or missing task content",
+      });
+    }
+
     const todoIndex = this.TODOS.findIndex((todo) => todo.id === todoId);
     if (todoIndex < 0) {
-      throw new Error("Could not find todo!");
-      res.json({
-        message: "Could not find todo with such index",
+      return res.status(404).json({
+        message: "Could not find todo with the specified id",
       });
     }
     this.TODOS[todoIndex] = new Todo(this.TODOS[todoIndex].id, updatedTask);
-    res.json({
-      message: "Updated todo",
-      updatedTask: this.TODOS[todoIndex],
-    });
+
+    try {
+      await fileManager.writeFile("./data/todos.json", this.TODOS);
+      return res.json({
+        message: "Updated todo successfully",
+        updatedTask: this.TODOS[todoIndex],
+      });
+    } catch (error) {
+      console.error("Error changing todo:", error);
+      return res.status(500).json({
+        message: "Failed to change todo",
+      });
+    }
   }
-  deleteTodo(req, res) {
+  async deleteTodo(req, res) {
     const todoId = req.params.id;
     const todoIndex = this.TODOS.findIndex((todo) => todo.id === todoId);
     if (todoIndex < 0) {
@@ -52,10 +67,20 @@ class todoController {
         message: "Could not find todo with the specified id",
       });
     }
-    this.TODOS.splice(todoIndex, 1);
-    return res.json({
-      message: "Deleted todo successfully",
-    });
+    const [deletedTodo] = this.TODOS.splice(todoIndex, 1);
+
+    try {
+      await fileManager.writeFile("./data/todos.json", this.TODOS);
+      res.json({
+        message: "Deleted todo successfully",
+        deletedTodo,
+      });
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+      res.status(500).json({
+        message: "Failed to delete todo",
+      });
+    }
   }
 }
 
