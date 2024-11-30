@@ -1,7 +1,7 @@
 import express, { Router } from "express";
 import { TodoController } from "../controllers/todos.js";
 
-const router = new Router();
+const router = express.Router();
 
 router.post("/new-todo", (req, res) => TodoController.createTodo(req, res));
 router.get("/", (req, res) => TodoController.getTodos(req, res));

@@ -1,5 +1,6 @@
 import { fileManager } from "../files.js";
 import { Todo } from "../models/todo.js";
+import { v4 as uuidv4 } from "uuid";
 
 class todoController {
   constructor() {
@@ -7,7 +8,7 @@ class todoController {
   }
   async createTodo(req, res) {
     const task = req.body.task;
-    const newTodo = new Todo(Math.random().toString(), task);
+    const newTodo = new Todo(uuidv4(), task);
     this.TODOS.push(newTodo);
     await fileManager.writeFile("./data/todos.json", this.TODOS);
     res.json({
