@@ -1,30 +1,10 @@
 [
   {
     "id": "b4ff6c6f-e57d-40e4-a60f-e1c652b2cf6b",
-    "task": "Study HTML"
+    "task": "Study OOPS concepts"
   },
   {
     "id": "ef964427-bb57-4d92-a2d9-c1189408a57b",
-    "task": "Study Wim"
-  },
-  {
-    "id": "de08752c-d274-4a9b-b587-dc30e60b8483",
-    "task": "add someting"
-  },
-  {
-    "id": "904b7b60-ccdd-4b31-a920-eb536ee559b0",
-    "task": "testing"
-  },
-  {
-    "id": "960a01a5-dcbe-468b-8cc6-f2a64c9bffcb",
-    "task": "asdaeasd "
-  },
-  {
-    "id": "34f070c0-e979-424c-aa3d-a5419f0ed42e",
-    "task": "asdasdasd"
-  },
-  {
-    "id": "7b19bbe9-54f0-4e73-9e56-93f5bc2a99b2",
-    "task": "asdfghjk"
+    "task": "Study PHP"
   }
 ]
